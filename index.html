@@ -29,18 +29,32 @@
         }
         h1, h2, h3 { font-family: 'Lora', serif; }
 
-        /* Demo banner */
-        #demo-banner {
-            display: none;
-            background: rgba(var(--acc-rgb), 0.15);
-            border-bottom: 1px solid rgba(var(--acc-rgb), 0.25);
-            color: var(--acc);
+        /* Status banner */
+        #status-banner {
             text-align: center;
-            padding: 8px 16px;
+            padding: 10px 16px;
             font-size: 13px;
+            font-weight: 500;
+            transition: all 0.3s;
         }
-        #demo-banner a { color: var(--acc); font-weight: 600; }
-        #demo-banner.show { display: block; }
+        #status-banner.loading { background: rgba(255,255,255,0.05); color: var(--muted); border-bottom: 1px solid var(--border); }
+        #status-banner.error { background: rgba(239,68,68,0.12); color: #ef4444; border-bottom: 1px solid rgba(239,68,68,0.2); }
+        #status-banner.success { background: rgba(34,197,94,0.12); color: #22c55e; border-bottom: 1px solid rgba(34,197,94,0.2); }
+        #status-banner.demo { background: rgba(var(--acc-rgb), 0.12); color: var(--acc); border-bottom: 1px solid rgba(var(--acc-rgb), 0.2); }
+        #status-banner a { color: inherit; font-weight: 700; text-decoration: underline; }
+
+        /* Spinner */
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .spinner {
+            display: inline-block;
+            width: 14px; height: 14px;
+            border: 2px solid transparent;
+            border-top-color: currentColor;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+            vertical-align: middle;
+            margin-right: 6px;
+        }
 
         /* Nav */
         nav {
@@ -61,11 +75,7 @@
             color: var(--text);
             text-decoration: none;
         }
-        .nav-logo {
-            height: 36px;
-            width: auto;
-            display: none;
-        }
+        .nav-logo { height: 36px; width: auto; display: none; }
         .nav-logo.visible { display: block; }
         .nav-cta {
             padding: 10px 20px;
@@ -86,24 +96,10 @@
             max-width: 900px;
             margin: 0 auto;
         }
-        .hero-logo {
-            max-width: 400px;
-            max-height: 160px;
-            object-fit: contain;
-            margin-bottom: 24px;
-            display: none;
-        }
+        .hero-logo { max-width: 400px; max-height: 160px; object-fit: contain; margin-bottom: 24px; display: none; }
         .hero-logo.visible { display: inline-block; }
-        .hero h1 {
-            font-size: clamp(32px, 6vw, 56px);
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-        .hero .tagline {
-            font-size: 18px;
-            color: var(--muted);
-            margin-bottom: 32px;
-        }
+        .hero h1 { font-size: clamp(32px, 6vw, 56px); font-weight: 700; margin-bottom: 12px; }
+        .hero .tagline { font-size: 18px; color: var(--muted); margin-bottom: 32px; }
         .hero .location-badge {
             display: inline-flex;
             align-items: center;
@@ -118,82 +114,25 @@
         .hero .location-badge svg { width: 16px; height: 16px; opacity: 0.6; }
 
         /* Sections */
-        section {
-            padding: 60px 24px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        section h2 {
-            text-align: center;
-            font-size: clamp(24px, 4vw, 36px);
-            margin-bottom: 12px;
-        }
-        section .section-sub {
-            text-align: center;
-            color: var(--muted);
-            font-size: 15px;
-            margin-bottom: 48px;
-        }
+        section { padding: 60px 24px; max-width: 1200px; margin: 0 auto; }
+        section h2 { text-align: center; font-size: clamp(24px, 4vw, 36px); margin-bottom: 12px; }
+        section .section-sub { text-align: center; color: var(--muted); font-size: 15px; margin-bottom: 48px; }
 
         /* About */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: center;
-        }
-        @media (max-width: 768px) {
-            .about-grid { grid-template-columns: 1fr; }
-        }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+        @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; } }
         .about-text h3 { font-size: 24px; margin-bottom: 12px; }
         .about-text p { color: var(--muted); font-size: 15px; line-height: 1.8; }
 
         /* Team */
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 24px;
-            justify-items: center;
-        }
-        .team-card {
-            text-align: center;
-            padding: 24px;
-            background: var(--panel);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            width: 100%;
-            max-width: 240px;
-        }
-        .team-photo {
-            width: 96px;
-            height: 96px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--border);
-            margin-bottom: 12px;
-        }
-        .team-initial {
-            width: 96px;
-            height: 96px;
-            border-radius: 50%;
-            background: rgba(var(--acc-rgb), 0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 36px;
-            font-weight: 700;
-            color: var(--acc);
-            margin: 0 auto 12px;
-            border: 2px solid rgba(var(--acc-rgb), 0.2);
-        }
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 24px; justify-items: center; }
+        .team-card { text-align: center; padding: 24px; background: var(--panel); border: 1px solid var(--border); border-radius: 16px; width: 100%; max-width: 240px; }
+        .team-photo { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); margin-bottom: 12px; }
+        .team-initial { width: 96px; height: 96px; border-radius: 50%; background: rgba(var(--acc-rgb), 0.15); display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: 700; color: var(--acc); margin: 0 auto 12px; border: 2px solid rgba(var(--acc-rgb), 0.2); }
         .team-name { font-weight: 600; font-size: 16px; }
 
         /* Contact */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 16px;
-        }
+        .contact-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
         .contact-card {
             display: flex;
             align-items: center;
@@ -207,27 +146,13 @@
             transition: border-color 0.2s;
         }
         .contact-card:hover { border-color: rgba(var(--acc-rgb), 0.3); }
-        .contact-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 10px;
-            background: rgba(var(--acc-rgb), 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
+        .contact-icon { width: 44px; height: 44px; border-radius: 10px; background: rgba(var(--acc-rgb), 0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .contact-icon svg { width: 20px; height: 20px; stroke: var(--acc); }
         .contact-label { font-size: 12px; color: var(--dim); text-transform: uppercase; letter-spacing: 0.5px; }
         .contact-value { font-size: 15px; font-weight: 500; }
 
         /* Links */
-        .links-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-        }
+        .links-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
         .link-btn {
             display: inline-flex;
             align-items: center;
@@ -245,65 +170,25 @@
         .link-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(var(--acc-rgb), 0.3); }
 
         /* Footer */
-        footer {
-            text-align: center;
-            padding: 40px 24px;
-            border-top: 1px solid var(--border);
-            color: var(--dim);
-            font-size: 13px;
-            margin-top: 40px;
-        }
-        footer .credit {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            margin-top: 8px;
-            color: var(--dim);
-            text-decoration: none;
-        }
+        footer { text-align: center; padding: 40px 24px; border-top: 1px solid var(--border); color: var(--dim); font-size: 13px; margin-top: 40px; }
+        footer .credit { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 8px; color: var(--dim); text-decoration: none; }
         footer .credit img { height: 16px; opacity: 0.5; }
 
         /* Empty state */
-        .empty-state {
-            text-align: center;
-            padding: 40px;
-            color: var(--dim);
-            background: var(--panel);
-            border: 1px dashed var(--border);
-            border-radius: 16px;
-        }
+        .empty-state { text-align: center; padding: 40px; color: var(--dim); background: var(--panel); border: 1px dashed var(--border); border-radius: 16px; }
         .empty-state svg { width: 48px; height: 48px; stroke: var(--dim); margin-bottom: 12px; }
 
-        /* Loading shimmer */
-        @keyframes shimmer {
-            0% { background-position: -200px 0; }
-            100% { background-position: calc(200px + 100%) 0; }
-        }
-        .loading {
-            background: linear-gradient(90deg, var(--panel) 25%, rgba(255,255,255,0.03) 50%, var(--panel) 75%);
-            background-size: 200px 100%;
-            animation: shimmer 1.5s infinite;
-            border-radius: 8px;
-        }
-
         /* Scroll reveal */
-        .reveal {
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
+        .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
         .reveal.visible { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
 
-<!-- Demo banner: shown when no site key or API fails -->
-<div id="demo-banner">
-    ⚡ Preview Mode — <a href="https://rowdy-designs.com/dashboard/settings" target="_blank">Connect your dashboard</a> to see your business data here.
+<div id="status-banner" class="loading">
+    <span class="spinner"></span> Connecting to your dashboard...
 </div>
 
-<!-- NAV -->
 <nav>
     <a href="#" class="nav-brand">
         <img class="nav-logo" data-rdd="logo_url" alt="Logo" id="nav-logo-img">
@@ -312,7 +197,6 @@
     <a href="#contact" class="nav-cta">Contact Us</a>
 </nav>
 
-<!-- HERO -->
 <section class="hero reveal">
     <img class="hero-logo" data-rdd="hero_logo_url" alt="Hero Logo" id="hero-logo-img">
     <h1 data-rdd="business">Rowdy Demo Business</h1>
@@ -323,7 +207,6 @@
     </div>
 </section>
 
-<!-- ABOUT -->
 <section class="reveal">
     <h2>About Us</h2>
     <p class="section-sub">Dedicated to quality service</p>
@@ -339,16 +222,12 @@
     </div>
 </section>
 
-<!-- TEAM -->
 <section class="reveal" id="team-section">
     <h2>Our Team</h2>
     <p class="section-sub">The people behind the work</p>
-    <div id="team-container">
-        <div class="team-grid" id="team-grid"></div>
-    </div>
+    <div class="team-grid" id="team-grid"></div>
 </section>
 
-<!-- CONTACT -->
 <section class="reveal" id="contact">
     <h2>Get In Touch</h2>
     <p class="section-sub">Ready to work with us? Reach out today.</p>
@@ -372,14 +251,12 @@
     </div>
 </section>
 
-<!-- CUSTOM LINKS -->
 <section class="reveal" id="links-section" style="display:none">
     <h2>Links</h2>
     <p class="section-sub">Find us across the web</p>
     <div class="links-grid" id="links-grid"></div>
 </section>
 
-<!-- FOOTER -->
 <footer>
     <p>&copy; <span id="footer-year">2026</span> <span data-rdd="business">Rowdy Demo Business</span>. All rights reserved.</p>
     <a class="credit" href="https://rowdy-designs.com" target="_blank">
@@ -388,181 +265,138 @@
 </footer>
 
 <script>
-// ── Configuration ──────────────────────────────────
-const SITE_API_BASE = 'https://rowdy-designs.com/api/site/';
-const SITE_KEY = new URLSearchParams(window.location.search).get('key') || '';
+(function() {
+    'use strict';
 
-// ── Fetch site data ────────────────────────────────
-async function loadSiteData() {
-    if (!SITE_KEY) {
-        showDemoMode('No site key provided. Add ?key=YOUR_SITE_KEY to the URL.');
-        return null;
-    }
-    try {
-        const resp = await fetch(SITE_API_BASE + SITE_KEY);
-        if (!resp.ok) throw new Error('API returned ' + resp.status);
-        return await resp.json();
-    } catch (e) {
-        console.warn('Site data fetch failed:', e.message);
-        showDemoMode('Could not load site data. Using demo content.');
-        return null;
-    }
-}
+    var SITE_API_BASE = 'https://rowdy-designs.com/api/site/';
+    var SITE_KEY = new URLSearchParams(window.location.search).get('key') || '';
+    var banner = document.getElementById('status-banner');
 
-function showDemoMode(msg) {
-    console.log('Demo mode:', msg);
-    document.getElementById('demo-banner').classList.add('show');
-}
-
-// ── Apply data to DOM ──────────────────────────────
-function applySiteData(data) {
-    if (!data) return;
-
-    // Text fields: data-rdd="field"
-    document.querySelectorAll('[data-rdd]').forEach(el => {
-        const field = el.dataset.rdd;
-        const value = data[field];
-        if (!value) return;
-
-        if (el.tagName === 'IMG') {
-            el.src = value;
-            el.classList.add('visible');
-        } else if (el.tagName === 'A' && field === 'facebook_url') {
-            el.href = value;
-        } else if (el.tagName === 'A' && el.id === 'contact-phone') {
-            el.href = 'tel:' + value;
-        } else if (el.tagName === 'A' && el.id === 'contact-email') {
-            el.href = 'mailto:' + value;
-        } else {
-            el.textContent = value;
-        }
-    });
-
-    // Document title
-    if (data.business) {
-        document.title = data.business;
+    function setStatus(state, html) {
+        banner.className = state;
+        banner.innerHTML = html;
     }
 
-    // Favicon
-    if (data.favicon_url) {
-        const favicon = document.getElementById('dynamic-favicon');
-        favicon.href = data.favicon_url;
-    }
+    function applySiteData(data) {
+        if (!data) return;
 
-    // Nav logo
-    if (data.logo_url) {
-        const navLogo = document.getElementById('nav-logo-img');
-        navLogo.src = data.logo_url;
-        navLogo.classList.add('visible');
-    }
+        // Text/image elements with data-rdd
+        document.querySelectorAll('[data-rdd]').forEach(function(el) {
+            var field = el.dataset.rdd;
+            var value = data[field];
+            if (!value && value !== 0) return;
 
-    // Hero logo
-    if (data.hero_logo_url) {
-        const heroLogo = document.getElementById('hero-logo-img');
-        heroLogo.src = data.hero_logo_url;
-        heroLogo.classList.add('visible');
-    }
-
-    // Tagline
-    if (data.business) {
-        document.getElementById('tagline').textContent =
-            'Your trusted local ' + (data.business.includes(' ') ? data.business.split(' ').pop() : 'service') + ' provider';
-    }
-
-    // Location badge
-    if (data.location) {
-        document.getElementById('location-badge').style.display = 'inline-flex';
-        document.getElementById('about-location').textContent = data.location;
-    }
-
-    // Phone
-    if (data.phone) {
-        const c = document.getElementById('contact-phone');
-        c.style.display = 'flex';
-        c.href = 'tel:' + data.phone;
-    }
-
-    // Email
-    if (data.email) {
-        const c = document.getElementById('contact-email');
-        c.style.display = 'flex';
-        c.href = 'mailto:' + data.email;
-    }
-
-    // Location contact card
-    if (data.location) {
-        document.getElementById('contact-location').style.display = 'flex';
-    }
-
-    // Facebook
-    if (data.facebook_url) {
-        document.getElementById('contact-facebook').style.display = 'flex';
-    }
-
-    // Owners / Team
-    if (data.owners && data.owners.length > 0) {
-        renderOwners(data.owners);
-    } else {
-        document.getElementById('team-grid').innerHTML = `
-            <div class="empty-state" style="grid-column:1/-1">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                <p>No team members added yet.</p>
-                <p style="font-size:13px;margin-top:4px">Add owners in your dashboard settings.</p>
-            </div>`;
-    }
-
-    // Custom links
-    if (data.custom_links && data.custom_links.length > 0) {
-        renderCustomLinks(data.custom_links);
-    }
-}
-
-// ── Render owners ───────────────────────────────────
-function renderOwners(owners) {
-    const grid = document.getElementById('team-grid');
-    grid.innerHTML = owners.map(o => {
-        if (o.photo_url) {
-            return `<div class="team-card">
-                <img src="${o.photo_url}" alt="${o.name}" class="team-photo" loading="lazy">
-                <p class="team-name">${o.name}</p>
-            </div>`;
-        }
-        return `<div class="team-card">
-            <div class="team-initial">${o.name[0].toUpperCase()}</div>
-            <p class="team-name">${o.name}</p>
-        </div>`;
-    }).join('');
-}
-
-// ── Render custom links ────────────────────────────
-function renderCustomLinks(links) {
-    const section = document.getElementById('links-section');
-    const grid = document.getElementById('links-grid');
-    section.style.display = 'block';
-    grid.innerHTML = links.map(url => {
-        let label = url.replace(/^https?:\/\//, '').replace(/^www\./, '');
-        if (label.length > 30) label = label.substring(0, 28) + '…';
-        return `<a href="${url}" target="_blank" class="link-btn" rel="noopener">${label} &rarr;</a>`;
-    }).join('');
-}
-
-// ── Scroll reveal ──────────────────────────────────
-function setupScrollReveal() {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-            if (e.isIntersecting) {
-                e.target.classList.add('visible');
-                observer.unobserve(e.target);
+            if (el.tagName === 'IMG') {
+                el.src = value;
+                el.classList.add('visible');
+            } else if (el.tagName === 'A' && field === 'facebook_url') {
+                el.href = value;
+            } else if (el.id === 'contact-phone') {
+                el.href = 'tel:' + value;
+            } else if (el.id === 'contact-email') {
+                el.href = 'mailto:' + value;
+            } else {
+                el.textContent = value;
             }
         });
-    }, { threshold: 0.15 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-}
 
-// ── Init ───────────────────────────────────────────
-document.getElementById('footer-year').textContent = new Date().getFullYear();
-setupScrollReveal();
-loadSiteData().then(applySiteData);
+        // Document title + favicon
+        if (data.business) document.title = data.business;
+        if (data.favicon_url) document.getElementById('dynamic-favicon').href = data.favicon_url;
+
+        // Nav logo
+        if (data.logo_url) {
+            var nl = document.getElementById('nav-logo-img');
+            nl.src = data.logo_url;
+            nl.classList.add('visible');
+        }
+
+        // Hero logo
+        if (data.hero_logo_url) {
+            var hl = document.getElementById('hero-logo-img');
+            hl.src = data.hero_logo_url;
+            hl.classList.add('visible');
+        }
+
+        // Tagline
+        if (data.business) {
+            var parts = data.business.split(' ');
+            document.getElementById('tagline').textContent = 'Your trusted local ' + parts[parts.length - 1] + ' provider';
+        }
+
+        // Location
+        if (data.location) {
+            document.getElementById('location-badge').style.display = 'inline-flex';
+            document.getElementById('about-location').textContent = data.location;
+        }
+
+        // Contact cards
+        if (data.phone)   { var c = document.getElementById('contact-phone');    c.style.display = 'flex'; c.href = 'tel:' + data.phone; }
+        if (data.email)   { var c = document.getElementById('contact-email');   c.style.display = 'flex'; c.href = 'mailto:' + data.email; }
+        if (data.location) { document.getElementById('contact-location').style.display = 'flex'; }
+        if (data.facebook_url) { document.getElementById('contact-facebook').style.display = 'flex'; }
+
+        // Owners
+        if (data.owners && data.owners.length > 0) {
+            document.getElementById('team-grid').innerHTML = data.owners.map(function(o) {
+                if (o.photo_url) {
+                    return '<div class="team-card"><img src="' + o.photo_url + '" alt="' + o.name + '" class="team-photo" loading="lazy"><p class="team-name">' + o.name + '</p></div>';
+                }
+                return '<div class="team-card"><div class="team-initial">' + o.name[0].toUpperCase() + '</div><p class="team-name">' + o.name + '</p></div>';
+            }).join('');
+        } else {
+            document.getElementById('team-grid').innerHTML = '<div class="empty-state" style="grid-column:1/-1"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg><p>No team members added yet.</p><p style="font-size:13px;margin-top:4px">Add owners in your dashboard settings.</p></div>';
+        }
+
+        // Custom links
+        if (data.custom_links && data.custom_links.length > 0) {
+            var section = document.getElementById('links-section');
+            section.style.display = 'block';
+            document.getElementById('links-grid').innerHTML = data.custom_links.map(function(url) {
+                var label = url.replace(/^https?:\/\//, '').replace(/^www\./, '');
+                if (label.length > 30) label = label.substring(0, 28) + '…';
+                return '<a href="' + url + '" target="_blank" class="link-btn" rel="noopener">' + label + ' →</a>';
+            }).join('');
+        }
+    }
+
+    // ── Init ──
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+    // Scroll reveal
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+            if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+        });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+
+    // Fetch site data
+    if (!SITE_KEY) {
+        setStatus('demo', '⚡ No site key provided. Get yours at <a href="https://rowdy-designs.com/dashboard/settings" target="_blank">Dashboard → Settings</a> then add <code style="background:rgba(255,255,255,0.1);padding:1px 5px;border-radius:3px;">?key=YOUR_KEY</code> to this URL.');
+        applySiteData(null);
+    } else {
+        setStatus('loading', '<span class="spinner"></span> Connecting to dashboard... (key: <code style="background:rgba(255,255,255,0.08);padding:1px 5px;border-radius:3px;">' + SITE_KEY.substring(0, 12) + '...</code>)');
+
+        fetch(SITE_API_BASE + SITE_KEY)
+            .then(function(resp) {
+                if (!resp.ok) throw new Error('Server returned ' + resp.status);
+                return resp.json();
+            })
+            .then(function(data) {
+                applySiteData(data);
+                if (data.business) {
+                    setStatus('success', '✅ Connected as: <strong>' + data.business + '</strong> — data loads from your dashboard.');
+                } else {
+                    setStatus('success', '✅ Connected! Fill in your business info in <a href="https://rowdy-designs.com/dashboard/settings" target="_blank">Dashboard Settings</a>.');
+                }
+            })
+            .catch(function(err) {
+                setStatus('error', '⚠ Connection failed: ' + err.message + '. Check that your site key is correct. <a href="https://rowdy-designs.com/dashboard/settings" target="_blank">Get your key →</a>');
+                applySiteData(null);
+            });
+    }
+})();
 </script>
 
 </body>
